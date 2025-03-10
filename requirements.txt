@@ -3,4 +3,5 @@ pyyaml
 scikit-learn
 mlflow
 flask
+dagshub
 -e .

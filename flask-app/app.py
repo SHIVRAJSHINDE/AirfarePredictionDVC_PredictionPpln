@@ -1,9 +1,30 @@
+import mlflow
 from flask import Flask, request, render_template
 from flask_cors import cross_origin
 
 from src.Prediction.predictionFile import ReceiveData
+import dagshub
+
+
 
 app = Flask(__name__)
+
+mlflow.set_tracking_uri('https://dagshub.com/SHIVRAJSHINDE/AirfarePredictionDVC_PredictionPpln.mlflow')
+dagshub.init(repo_owner='SHIVRAJSHINDE',repo_name='AirfarePredictionDVC_PredictionPpln',mlflow=True)
+
+
+model_name = 'my_model'
+model_version = 1
+
+model_uri = "models:/my_model/1"
+
+print("----------------------------------------------------------------")
+print(model_uri)
+model = mlflow.pyfunc.load_model(model_uri)
+
+print("----------------------------------------------------------------")
+print(model)
+
 
 
 @app.route("/")

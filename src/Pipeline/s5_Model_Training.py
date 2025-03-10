@@ -8,6 +8,11 @@ from sklearn.linear_model import Ridge, Lasso, ElasticNet
 import json
 import os
 
+import mlflow
+import dagshub
+
+
+
 class ModelTrainerClass:
 
     def __init__(self, X_train_path, y_train_path, params_path):
@@ -79,10 +84,10 @@ class ModelTrainerClass:
 
 class MLflowLoggerClass:
 
-    def __init__(self, tracking_uri):
+    def __init__(self):
         """Initialize MLflowLogger with the tracking URI."""
-        self.tracking_uri = tracking_uri
-        mlflow.set_tracking_uri(self.tracking_uri)
+        mlflow.set_tracking_uri('https://dagshub.com/SHIVRAJSHINDE/AirfarePredictionDVC_PredictionPpln.mlflow')
+        dagshub.init(repo_owner='SHIVRAJSHINDE',repo_name='AirfarePredictionDVC_PredictionPpln',mlflow=True)
         
 
     def save_model_info(self, run_id: str, model_path: str, file_path: str) -> None:
@@ -130,7 +135,9 @@ if __name__ == "__main__":
     X_train_path = "Data\\04_encoded_Data\\X_train.csv"
     y_train_path = "Data\\04_encoded_Data\\y_train.csv"
     params_path = "modelsParams.yaml"
-    tracking_uri = "http://localhost:5000"
+
+
+
 
     # Initialize the ModelTrainerObj
     ModelTrainerObj = ModelTrainerClass(X_train_path, y_train_path, params_path)
@@ -160,5 +167,5 @@ if __name__ == "__main__":
         print(f"Model Name: {model_name}")
 
         # Initialize MLflowLogger and log results
-        MLflowLoggerObj = MLflowLoggerClass(tracking_uri)  # Replace with your URI
+        MLflowLoggerObj = MLflowLoggerClass()  # Replace with your URI
         MLflowLoggerObj.log_results(model_name, best_model, best_params, mse, mae, rmse, r2, aR2)
