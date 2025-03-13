@@ -17,7 +17,8 @@ class ModelManager:
         self.client = MlflowClient()
         mlflow.set_tracking_uri('https://dagshub.com/SHIVRAJSHINDE/AirfarePredictionDVC_PredictionPpln.mlflow')
         dagshub.init(repo_owner='SHIVRAJSHINDE',repo_name='AirfarePredictionDVC_PredictionPpln',mlflow=True)
-
+        # self.tracking_uri = "http://localhost:5000"
+        # mlflow.set_tracking_uri(self.tracking_uri)
 
     def save_model_info(self, run_id: str, model_path: str) -> None:
         """Save the model run ID and path to a JSON file."""
@@ -56,7 +57,7 @@ class ModelManager:
         
 
 if __name__ == '__main__':
-    model_name="my_model"
+    model_name="Lasso_model"
     info_path='reports/experiment_info.json'
 
     model_manager = ModelManager(model_name, info_path)

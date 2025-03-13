@@ -1,0 +1,14 @@
+aliases: []
+creation_timestamp: 1741886460589
+current_stage: Staging
+description: null
+last_updated_timestamp: 1741886460638
+name: Lasso_model
+run_id: b86d75382ed74105b6546b9c899fdc44
+run_link: null
+source: runs:/b86d75382ed74105b6546b9c899fdc44/model
+status: READY
+status_message: null
+storage_location: runs:/b86d75382ed74105b6546b9c899fdc44/model
+user_id: null
+version: 4

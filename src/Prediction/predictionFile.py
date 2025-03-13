@@ -185,11 +185,18 @@ class PredictionPipeline:
         """
         Reorders columns in the DataFrame for final output.
         """
-        df = df[['Airline', 'Source', 'Destination', 'Total_Stops', 'Day','Month','Year',
-                 'Dept_Hour', 'Dept_Minute', 'Arr_Hour', 'Arr_Minute', 'hoursMinutes']]
-        return df
+        try:
+            df = df[['Airline', 'Source', 'Destination', 'Total_Stops', 'Day','Month','Year',
+                    'Dept_Hour', 'Dept_Minute', 'Arr_Hour', 'Arr_Minute', 'hoursMinutes']]
+            return df
+        except Exception as e:
+            print("Error loading model:", e)
+
 
     def loadtranformation(self):
-        with open('model/model_transform.pkl', 'rb') as file:
-            transformer = pickle.load(file)
-            return transformer
+        try:
+            with open('model/model_transform.pkl', 'rb') as file:
+                transformer = pickle.load(file)
+                return transformer
+        except Exception as e:
+            print("Error loading model:", e)

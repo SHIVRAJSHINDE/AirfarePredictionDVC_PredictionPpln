@@ -1,31 +1,33 @@
 import mlflow
+import mlflow.pyfunc
+
 from flask import Flask, request, render_template
 from flask_cors import cross_origin
 
+
 from src.Prediction.predictionFile import ReceiveData
 import dagshub
-
-
 
 app = Flask(__name__)
 
 mlflow.set_tracking_uri('https://dagshub.com/SHIVRAJSHINDE/AirfarePredictionDVC_PredictionPpln.mlflow')
 dagshub.init(repo_owner='SHIVRAJSHINDE',repo_name='AirfarePredictionDVC_PredictionPpln',mlflow=True)
 
-
-model_name = 'my_model'
-model_version = 1
-
-model_uri = "models:/my_model/1"
-
-print("----------------------------------------------------------------")
-print(model_uri)
-model = mlflow.pyfunc.load_model(model_uri)
-
-print("----------------------------------------------------------------")
-print(model)
+# tracking_uri = "http://localhost:5000"
+# mlflow.set_tracking_uri(tracking_uri)
 
 
+logged_model = 'runs:/b86d75382ed74105b6546b9c899fdc44/Lasso_model'
+
+try:
+    # Load model as a PyFuncModel.
+    model = mlflow.pyfunc.load_model(logged_model)
+
+
+
+    print(model)
+except Exception as e:
+    print("Error loading model:", e)
 
 @app.route("/")
 @cross_origin()
@@ -56,7 +58,12 @@ def predict():
         print(df)
 
         value = receiveData_Obj.execute_pipeline(df)
-    
+        prediction_value = model.predict(value)
+        print("----------------------------------------------------")
+        print(value)
+        print("----------------------------------------------------")
+        return render_template("prediction.html", prediction=prediction_value)
+
     return render_template("home.html")
 
 
