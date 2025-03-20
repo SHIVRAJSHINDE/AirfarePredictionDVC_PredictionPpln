@@ -19,6 +19,10 @@ jobs:
         run: | 
           pip install -r requirements.txt
 
+      - name: Install DVC
+        run: |  
+          pip install dvc
+
       - name: run DVC Pipeline
         run: | 
           dvc repro
