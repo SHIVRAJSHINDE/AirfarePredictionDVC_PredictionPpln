@@ -6,6 +6,7 @@ class DataIngestionClass:
         # Read the CSV file and return the DataFrame
         df = pd.read_csv(source_path)
         print(df)
+        print(df)
         return df
 
     def save_file(df, directory, filename):
