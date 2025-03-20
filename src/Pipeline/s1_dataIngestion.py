@@ -26,7 +26,7 @@ class DataIngestionClass:
 
 # This block will only execute if this script is run directly
 if __name__ == "__main__":
-    source_path = 'C:\\Users\\SHIVRAJ SHINDE\\JupiterWorking\\XL_ML\\Z_DataSets\\01_AirlineData\\Airline.csv'
+    source_path = r'C:\\Users\\SHIVRAJ SHINDE\\JupiterWorking\\XL_ML\\Z_DataSets\\01_AirlineData\\Airline.csv'
     directory = "Data/01_RawData/"
     filename = "Airline.csv"
 
